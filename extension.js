@@ -1,5 +1,7 @@
 //edit the constants here
-const anim_time=0.25;  //fade out animation time in seconds
+const animation_time=0.25;  		// fade out animation time in seconds
+const horizontal_align="left";		// OR center
+const padding_y=2;			// space between panel and label
 //edit other settings in stylesheet
 
 const St = imports.gi.St;
@@ -18,7 +20,7 @@ function _hideTitle() {if (text){
 function _tween() {
  Tweener.addTween(text,
                      { opacity: 0,
-                       time: anim_time,
+                       time: animation_time,
                        transition: 'easeOutQuad',
                        onComplete: _hideTitle });}
 
@@ -33,9 +35,10 @@ function _showTitle() {
     text.opacity = 255;
 
     let monitor = Main.layoutManager.primaryMonitor;
-
-    text.set_position(Math.floor(monitor.width / 2 - text.width / 2),
-                      Math.floor(Main.panel.actor.get_height()));
+	let x;
+	if(horizontal_align=="center") x=Math.floor(monitor.width / 2 - text.width / 2);
+	else x=appMenu.x;
+    text.set_position(x, Main.panel.actor.get_height()+padding_y);
 
 }
 
