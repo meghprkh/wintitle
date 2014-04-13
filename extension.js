@@ -9,7 +9,7 @@ const Main = imports.ui.main;
 const Tweener = imports.ui.tweener;
 const Shell = imports.gi.Shell;
 
-let text,appMenu,sig0,sig1,original_reactive,original_track_hover;
+let text,appMenu,sig0,sig1,sig2,original_reactive,original_track_hover;
 
 function _hideTitle() {if (text){
     Main.uiGroup.remove_actor(text);
@@ -55,6 +55,7 @@ function enable() {
 
 	sig0=appMenu.connect('enter-event', _showTitle);
 	sig1=appMenu.connect('leave-event', _tween);
+	sig2=appMenu.connect('button-release-event', _tween);
 }
 
 
@@ -66,4 +67,5 @@ function disable() {
 
 	appMenu.disconnect(sig0);
 	appMenu.disconnect(sig1);
+	appMenu.disconnect(sig2);
 }
