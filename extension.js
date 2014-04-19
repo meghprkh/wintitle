@@ -12,33 +12,34 @@ const Shell = imports.gi.Shell;
 let text,appMenu,sig0,sig1,sig2,original_reactive,original_track_hover;
 
 function _hideTitle() {if (text){
-    Main.uiGroup.remove_actor(text);
-    text = null;}
+	Main.uiGroup.remove_actor(text);
+	text = null;}
 }
 
 
 function _tween() {
- Tweener.addTween(text,
-                     { opacity: 0,
-                       time: animation_time,
-                       transition: 'easeOutQuad',
-                       onComplete: _hideTitle });}
+	Tweener.addTween(text,
+		{ opacity: 0,
+		time: animation_time,
+		transition: 'easeOutQuad',
+		onComplete: _hideTitle });
+}
 
 
 function _showTitle() {
-    if (!text) {
-	let win = global.display.focus_window;
+	if (!text) {
+		let win = global.display.focus_window;
         text = new St.Label({ style_class: 'title-label', text: win.title });
         Main.uiGroup.add_actor(text);
-    }
+	}
 
-    text.opacity = 255;
+	text.opacity = 255;
 
-    let monitor = Main.layoutManager.primaryMonitor;
+	let monitor = Main.layoutManager.primaryMonitor;
 	let x;
 	if(horizontal_align=="center") x=Math.floor(monitor.width / 2 - text.width / 2);
-	else x=appMenu.x;
-    text.set_position(x, Main.panel.actor.get_height()+padding_y);
+	else x=appMenu.get_transformed_position()[0];
+	text.set_position(x, Main.panel.actor.get_height()+padding_y);
 
 }
 
